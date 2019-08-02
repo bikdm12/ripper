@@ -43,7 +43,7 @@ RUN mkdir -p /home/work/pfamscan
 #
 
 WORKDIR /home/work
-RUN git clone https://github.com/thedamlab/rodeo2.git
+RUN git clone https://github.com/bikdm12/rodeo2.git
 
 RUN cp ripper/ripper_run.sh ripper/minitest.txt ripper/local.conf ./
 RUN cp ripper/postprocess.sh ./
