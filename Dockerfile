@@ -23,7 +23,7 @@ RUN git checkout master
 WORKDIR /home/work/pfam
 RUN wget --no-verbose ftp://ftp.ebi.ac.uk/pub/databases/Pfam/current_release/Pfam-A.hmm.gz
 # RUN wget --no-verbose ftp://ftp.ebi.ac.uk/pub/databases/Pfam/current_release/Pfam-A.hmm.dat.gz
-RUN wget -O TIGRFAMs_15.hmm.gz http://bit.ly/TIGRFAMs_15
+RUN wget -O TIGRFAMs_15.hmm.gz http://bit.ly/tigrfams_15
 RUN gunzip *.gz
 
 # && rm Pfam-A.hmm
