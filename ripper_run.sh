@@ -63,11 +63,17 @@ ln -s ${rodeodir}/confs ./
 fi
 
 # Make the various directories where output will be placed.
-for hcd in $rodoutdir $ripoutdir sqlite gbkcache $orgnamegbkdir $rodeohtmldir; do
+for hcd in $rodoutdir $ripoutdir sqlite $orgnamegbkdir $rodeohtmldir; do
 if [[ ! -d $hcd ]]; then
   mkdir $hcd
 fi
 done
+
+if [[ ! -d gbkcache ]]; then
+  mkdir gbkcache
+else
+  stored = "true"
+fi
 
 rm sqlite/*
 
@@ -77,8 +83,13 @@ rm sqlite/*
 
 for acc in $(${perlbin} ${ripperdir}/cat.pl $queryfn); do 
 # for acc in $(cat $queryfn); do 
-  echo $pythonbin ${rodeodir}/rodeo_main.py -out ${rodoutdir}/${acc} ${acc}
-  $pythonbin ${rodeodir}/rodeo_main.py -out ${rodoutdir}/${acc} ${acc}
+  if [ $stored == "true"]; then
+    echo $pythonbin ${rodeodir}/rodeo_main.py --d gbkcache -out ${rodoutdir}/${acc} ${acc}
+    $pythonbin ${rodeodir}/rodeo_main.py --d gbkcache -out ${rodoutdir}/${acc} ${acc}
+  else
+    echo $pythonbin ${rodeodir}/rodeo_main.py -out ${rodoutdir}/${acc} ${acc}
+    $pythonbin ${rodeodir}/rodeo_main.py -out ${rodoutdir}/${acc} ${acc}
+  fi
   echo $perlbin ${ripperdir}/ripper.pl -outdir $ripoutdir -- ${rodoutdir}/${acc}/main_co_occur.csv
   $perlbin ${ripperdir}/ripper.pl -outdir $ripoutdir -- ${rodoutdir}/${acc}/main_co_occur.csv
 done
