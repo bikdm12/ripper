@@ -72,10 +72,11 @@ done
 if [[ ! -d $gbkcache ]]; then
   mkdir $gbkcache
 else
-  stored = "true"
+  stored="true"
 fi
 
-rm sqlite/*
+echo "kekeke"
+#rm sqlite/*
 
 ### Setup is now complete. Actual runs below. ###
 
@@ -83,7 +84,7 @@ rm sqlite/*
 
 for acc in $(${perlbin} ${ripperdir}/cat.pl $queryfn); do 
 # for acc in $(cat $queryfn); do 
-  if [ $stored == "true"]; then
+  if [ $stored = "true" ]; then
     echo $pythonbin ${rodeodir}/rodeo_main.py --d $gbkcache -out ${rodoutdir}/${acc} ${acc}
     $pythonbin ${rodeodir}/rodeo_main.py --d $gbkcache -out ${rodoutdir}/${acc} ${acc}
   else
