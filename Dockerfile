@@ -5,7 +5,8 @@ MAINTAINER Govind Chandra <govind.chandra@jic.ac.uk>
 RUN apt-get update && apt-get install -yqq ncbi-blast+ hmmer unzip wget git
 RUN apt-get install -yqq sqlite3 build-essential python-dev python-pip
 RUN apt-get install -yqq bioperl
-RUN pip install -q biopython
+# latest biopython version doesn't work
+RUN pip install -q biopython==1.69
 
 # The Pfam database
 RUN mkdir -p /home/work/pfam
@@ -23,7 +24,8 @@ RUN git checkout master
 WORKDIR /home/work/pfam
 RUN wget --no-verbose ftp://ftp.ebi.ac.uk/pub/databases/Pfam/current_release/Pfam-A.hmm.gz
 # RUN wget --no-verbose ftp://ftp.ebi.ac.uk/pub/databases/Pfam/current_release/Pfam-A.hmm.dat.gz
-RUN wget -O TIGRFAMs_15.hmm.gz http://bit.ly/tigrfams_15
+# hmms from tigrfams ftp site are incompatible with Pfam since they are made with another hmmer version
+RUN wget -O TIGRFAMs_15.hmm.gz https://www.dropbox.com/s/kiy68796gc1exm7/TIGRFAMs_15.hmm.gz?dl=1
 RUN gunzip *.gz
 
 # && rm Pfam-A.hmm
@@ -49,4 +51,3 @@ RUN cp ripper/ripper_run.sh ripper/minitest.txt ripper/local.conf ./
 RUN cp ripper/postprocess.sh ./
 
 WORKDIR /home/work
-
