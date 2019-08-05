@@ -26,7 +26,7 @@ ripperdir=/home/work/ripper;
 rodeodir=/home/work/rodeo2;
 pfamdir=/home/work/pfam
 
-
+gbkcache=/home/mnt/gbkcache
 
 # Tab delimited output file for results including pfam hits.
 outfile=/home/mnt/out.txt
@@ -69,8 +69,8 @@ if [[ ! -d $hcd ]]; then
 fi
 done
 
-if [[ ! -d gbkcache ]]; then
-  mkdir gbkcache
+if [[ ! -d $gbkcache ]]; then
+  mkdir $gbkcache
 else
   stored = "true"
 fi
@@ -84,11 +84,12 @@ rm sqlite/*
 for acc in $(${perlbin} ${ripperdir}/cat.pl $queryfn); do 
 # for acc in $(cat $queryfn); do 
   if [ $stored == "true"]; then
-    echo $pythonbin ${rodeodir}/rodeo_main.py --d gbkcache -out ${rodoutdir}/${acc} ${acc}
-    $pythonbin ${rodeodir}/rodeo_main.py --d gbkcache -out ${rodoutdir}/${acc} ${acc}
+    echo $pythonbin ${rodeodir}/rodeo_main.py --d $gbkcache -out ${rodoutdir}/${acc} ${acc}
+    $pythonbin ${rodeodir}/rodeo_main.py --d $gbkcache -out ${rodoutdir}/${acc} ${acc}
   else
     echo $pythonbin ${rodeodir}/rodeo_main.py -out ${rodoutdir}/${acc} ${acc}
     $pythonbin ${rodeodir}/rodeo_main.py -out ${rodoutdir}/${acc} ${acc}
+    rm -rf $gbkcache
   fi
   echo $perlbin ${ripperdir}/ripper.pl -outdir $ripoutdir -- ${rodoutdir}/${acc}/main_co_occur.csv
   $perlbin ${ripperdir}/ripper.pl -outdir $ripoutdir -- ${rodoutdir}/${acc}/main_co_occur.csv
