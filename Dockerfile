@@ -2,7 +2,7 @@ FROM bioperl/bioperl
 MAINTAINER Govind Chandra <govind.chandra@jic.ac.uk>
 # ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update && apt-get install -yqq ncbi-blast+ hmmer unzip wget git
+RUN apt-get update && apt-get install -yqq ncbi-blast+ hmmer unzip wget git parallel
 RUN apt-get install -yqq sqlite3 build-essential python-dev python-pip
 RUN apt-get install -yqq bioperl
 # latest biopython version doesn't work
@@ -17,7 +17,7 @@ ADD prodigal-short /usr/local/bin/
 WORKDIR /home/work
 RUN git clone https://github.com/bikdm12/ripper.git
 WORKDIR /home/work/ripper
-
+RUN git checkout feature-parallel
 
 
 WORKDIR /home/work/pfam

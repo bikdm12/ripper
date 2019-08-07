@@ -21,6 +21,7 @@ echo "Either $queryfn does not exists or is zero in size. Aborting.";
 exit 1;
 fi
 
+njobs=20
 
 ripperdir=/home/work/ripper;
 rodeodir=/home/work/rodeo2;
@@ -81,18 +82,15 @@ rm sqlite/*
 
 # rodeo run and ripper.pl run for each query in $queryfn
 
-for acc in $(${perlbin} ${ripperdir}/cat.pl $queryfn); do 
-# for acc in $(cat $queryfn); do 
-  if [ $stored = "true" ]; then
-    echo $pythonbin ${rodeodir}/rodeo_main.py -d $gbkcache -out ${rodoutdir}/${acc} ${acc}
-    $pythonbin ${rodeodir}/rodeo_main.py -d $gbkcache -out ${rodoutdir}/${acc} ${acc}
-  else
-    echo $pythonbin ${rodeodir}/rodeo_main.py -out ${rodoutdir}/${acc} ${acc}
-    $pythonbin ${rodeodir}/rodeo_main.py -out ${rodoutdir}/${acc} ${acc}
-  fi
-  echo $perlbin ${ripperdir}/ripper.pl -outdir $ripoutdir -- ${rodoutdir}/${acc}/main_co_occur.csv
-  $perlbin ${ripperdir}/ripper.pl -outdir $ripoutdir -- ${rodoutdir}/${acc}/main_co_occur.csv
-done
+if [ $stored = "true" ]; then
+  echo "Processing local genomic files"
+  parallel --jobs $njobs -a $queryfn $pythonbin ${rodeodir}/rodeo_main.py -d $gbkcache -out ${rodoutdir}/{} {}
+else
+  echo "Fetching genomic files from NCBI"
+  parallel --jobs $njobs -a $queryfn $pythonbin ${rodeodir}/rodeo_main.py -out ${rodoutdir}/{} {}
+fi
+echo "Main ripper analysis"
+parallel --jobs $njobs -a $queryfn $perlbin ${ripperdir}/ripper.pl -outdir $ripoutdir -- ${rodoutdir}/{}/main_co_occur.csv
 
 # Run the postprocessing scripts
 
