@@ -75,8 +75,7 @@ else
   stored="true"
 fi
 
-echo "kekeke"
-#rm sqlite/*
+rm sqlite/*
 
 ### Setup is now complete. Actual runs below. ###
 
