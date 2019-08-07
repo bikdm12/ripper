@@ -25,7 +25,7 @@ WORKDIR /home/work/pfam
 RUN wget --no-verbose ftp://ftp.ebi.ac.uk/pub/databases/Pfam/current_release/Pfam-A.hmm.gz
 # RUN wget --no-verbose ftp://ftp.ebi.ac.uk/pub/databases/Pfam/current_release/Pfam-A.hmm.dat.gz
 # hmms from tigrfams ftp site are incompatible with Pfam since they are made with another hmmer version
-RUN wget -O TIGRFAMs_15.hmm.gz https://www.dropbox.com/s/kiy68796gc1exm7/TIGRFAMs_15.hmm.gz?dl=1
+RUN wget --no-verbose -O TIGRFAMs_15.hmm.gz https://www.dropbox.com/s/kiy68796gc1exm7/TIGRFAMs_15.hmm.gz?dl=1
 RUN gunzip *.gz
 
 # && rm Pfam-A.hmm

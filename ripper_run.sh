@@ -84,8 +84,8 @@ rm sqlite/*
 for acc in $(${perlbin} ${ripperdir}/cat.pl $queryfn); do 
 # for acc in $(cat $queryfn); do 
   if [ $stored = "true" ]; then
-    echo $pythonbin ${rodeodir}/rodeo_main.py --d $gbkcache -out ${rodoutdir}/${acc} ${acc}
-    $pythonbin ${rodeodir}/rodeo_main.py --d $gbkcache -out ${rodoutdir}/${acc} ${acc}
+    echo $pythonbin ${rodeodir}/rodeo_main.py -d $gbkcache -out ${rodoutdir}/${acc} ${acc}
+    $pythonbin ${rodeodir}/rodeo_main.py -d $gbkcache -out ${rodoutdir}/${acc} ${acc}
   else
     echo $pythonbin ${rodeodir}/rodeo_main.py -out ${rodoutdir}/${acc} ${acc}
     $pythonbin ${rodeodir}/rodeo_main.py -out ${rodoutdir}/${acc} ${acc}
