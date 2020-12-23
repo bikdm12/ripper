@@ -1,3 +1,20 @@
+# Modified RIPPER
+This branch adds feature of using GNU Parallel to speed up the computing.
+
+This is modified version of the original [RIPPER](https://github.com/streptomyces/ripper).
+It has two additional features: 
+
+* it can process locally stored genomic genbank files instead of downloading them from NCBI.
+* it uses both TIGRFAMs and Pfam databases to annotate proteins encoded within genomic regions of interest
+
+## Usage
+By default genomic files are downloaded from NCBI (just as in the original RIPPER). To process the locally stored files you need to make a subdirectory `gbkcache` with genomic files within the directory in which you are going to run the RIPPER (that becomes `/home/mnt/` after mounting the container).
+Genbank files must be named with query protein accsession number and bear an extension `.gbk`. Example: 
+
+`gbk_dir/WP_020387003.1.gbk`
+
+This version always uses both Pfam and TIGRFAMs databases.
+
 # RiPPER Overview
 
 RiPPER (RiPP Precursor Peptide Enhanced Recognition) is a customisable tool for the identification of genes encoding putative precursor peptides within RiPP (ribosomally synthesised and post-translationally modified peptide) gene clusters. RiPPER carries out the following things to do this:
