@@ -5,8 +5,11 @@ It has two additional features:
 *it uses both TIGRFAMs and Pfam databases to annotate proteins encoded within genomic regions of interest
 
 ## Usage
-By default genomic files are downloaded from NCBI (just as in the original RIPPER). To process the locally stored files you need to make a subdirectory "gbkcache" with genomic files within the directory in which you are going to run the RIPPER (that becomes /home/mnt/ after mounting the container).
-Genbank files must be named with query protein accsession number and bear an extension '.gbk'. Example: `gbk_dir/WP_020387003.1.gbk`
+By default genomic files are downloaded from NCBI (just as in the original RIPPER). To process the locally stored files you need to make a subdirectory `gbkcache` with genomic files within the directory in which you are going to run the RIPPER (that becomes `/home/mnt/` after mounting the container).
+Genbank files must be named with query protein accsession number and bear an extension `.gbk`. Example: 
+
+`gbk_dir/WP_020387003.1.gbk`
+
 This version always uses both Pfam and TIGRFAMs databases.
 
 # RiPPER Overview
