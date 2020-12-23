@@ -1,5 +1,5 @@
 # Modified RIPPER
-This branch uses the GNU parallel to speed up the computation.
+This branch adds a feature of using GNU Parallel to speed up the computing.
 
 This is a modified version of the original [RIPPER](https://github.com/streptomyces/ripper).
 It has two additional features: 
